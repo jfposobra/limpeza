@@ -1,0 +1,363 @@
+:root{
+  --blue:#06314e; /* slightly darker institutional blue */
+  --green:#28a745;
+  --muted:#6b7280;
+  --text-dark:#2b3440; /* body text softer than pure black */
+  --bg:#ffffff;
+  --card:#f8fbff; /* very light blue card tone for services */
+  --section-blue:#f2f7fb; /* services section background */
+  --section-gray:#f6f7f9; /* institutional / SEO micro block */
+  --glass: rgba(255,255,255,0.6);
+  --radius:12px;
+  --maxw:1100px;
+  --accent: var(--green);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  /* visually hidden for SEO text */
+  .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+}
+
+/* small helper: make programmatically clickable images show pointer and subtle focus */
+.clickable-img{cursor:pointer;outline-offset:4px}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
+.container{max-width:var(--maxw);margin:0 auto;padding:20px}
+
+/* Header */
+.site-header{--header-h:84px;position:fixed;top:0;left:0;right:0;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid #eee;z-index:40;padding-bottom:20px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:auto;max-height:64px;height:auto;display:block}
+.brand-text strong{display:block;font-size:1.05rem;color:var(--blue)}
+.brand-text small{display:block;color:var(--muted);font-size:0.75rem}
+
+/* Nav */
+.main-nav{display:flex;align-items:center}
+.nav-toggle{display:none;background:none;border:0;font-size:1.2rem;padding:8px}
+.nav-list{list-style:none;margin:0;padding:0;display:flex;gap:8px;align-items:center}
+.nav-list a, .nav-list button{
+  background:none;
+  border:0;
+  padding:8px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  color:inherit;
+  text-decoration:none;
+  font-weight:600;
+
+  /* ensure any inline symbol (caret/arrow) vertically aligns with text */
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  line-height:1;
+  vertical-align:middle;
+}
+
+/* caret (dropdown arrow) kept as a separate inline element for precise alignment */
+.caret{
+  display:inline-flex;
+  align-items:center;
+  margin-left:6px;
+  font-size:0.95rem;
+  line-height:1;
+  transform:none; /* ensure no accidental vertical shift */
+}
+.nav-list a:hover, .nav-list button:hover{background:var(--card);transform:translateY(-2px);transition:all .18s}
+.has-dropdown{position:relative}
+.dropdown{
+  position:absolute;
+  top:100%;
+  left:0;
+  transform:none;
+  background:white;
+  border:1px solid #eee;
+  padding:10px;
+  border-radius:10px;
+  min-width:280px;
+  box-shadow:0 8px 20px rgba(15,23,42,0.08);
+  z-index:90; /* ensure dropdown sits above the header */
+  /* ensure each dropdown is independent and can be placed beside neighbors */
+  white-space:normal;
+}
+
+/* when multiple dropdowns appear in sequence inside the nav, place the 2nd one to the right of the 1st */
+.nav-list > .has-dropdown + .has-dropdown .dropdown{
+  left: calc(100% + 12px);
+  transform:none;
+  top:100%;
+}
+
+/* if there are three dropdowns, allow the 3rd to flow further right */
+.nav-list > .has-dropdown + .has-dropdown + .has-dropdown .dropdown{
+  left: calc(200% + 20px);
+  transform:none;
+  top:100%;
+}
+
+/* keep dropdowns constrained on smaller widths */
+@media (max-width:980px){
+  .nav-list > .has-dropdown + .has-dropdown .dropdown,
+  .nav-list > .has-dropdown + .has-dropdown + .has-dropdown .dropdown{
+    left:0;
+    top:100%;
+    transform:none;
+  }
+}
+
+/* Mobile: inside the mobile slide-out/menu, dropdowns become block-level and full width so they stack naturally */
+@media (max-width:640px){
+  .nav-list .dropdown{
+    position:relative;
+    top:0;
+    left:0;
+    transform:none;
+    box-shadow:none;
+    border:0;
+    background:transparent;
+    padding:6px 0 0;
+    min-width:auto;
+  }
+  .nav-list .dropdown li{border-bottom:0;padding:6px 8px}
+}
+.dropdown li{list-style:none;padding:6px 0;border-bottom:1px solid rgba(11,105,163,0.04)}
+.dropdown li:last-child{border-bottom:0}
+.dropdown button{width:100%;text-align:left;padding:8px;border-radius:6px;background:transparent;border:0;font-weight:700;cursor:pointer;color:var(--blue)}
+.dropdown button:focus{outline:2px solid rgba(6,49,78,0.12);border-radius:6px}
+.dropdown-desc{margin:6px 0 0;padding-left:6px;color:var(--muted);font-size:0.9rem;line-height:1.3}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid transparent;background:transparent;cursor:pointer}
+.btn.primary{
+  background:var(--blue);
+  color:white;
+  font-weight:700;
+  /* slightly reduced size for the header CTA to be less dominant */
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:0.95rem;
+}
+
+/* make header primary button a bit more compact on small screens */
+@media (max-width:640px){
+  .btn.primary{
+    padding:8px 10px;
+    font-size:0.9rem;
+  }
+}
+.btn.ghost{border:1px solid rgba(11,105,163,0.12);color:var(--blue)}
+.btn.small{padding:8px 10px;font-size:0.9rem}
+.btn.whatsapp{background:linear-gradient(90deg,var(--green),#1fa43a);color:white;border-radius:12px}
+
+/* Hero */
+.hero{padding-top:140px;padding-bottom:36px;background:var(--bg)} /* keep hero white; increased top padding to clear fixed header */
+.hero .container{max-width:100%;padding-left:20px;padding-right:20px}
+.hero-inner{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+.hero h1{font-size:2rem;margin:0;color:var(--blue)}
+.hero p{color:var(--muted);margin:8px 0 16px}
+.seo-micro{background:var(--section-gray);padding:12px;border-radius:10px;color:var(--text-dark);margin-top:10px}
+.hero-image img{width:100%;border-radius:12px;box-shadow:0 8px 30px rgba(11,105,163,0.08)}
+
+/* Sections */
+.section{padding:48px 0}
+.section h2{margin:0 0 8px;color:var(--blue);font-weight:700}
+.section p, .section .muted{color:var(--muted)}
+.muted{color:var(--muted)}
+.seo-micro-wrap{padding:10px 20px}
+
+/* Video block: centered, medium size, rounded corners, light-gray background, responsive */
+.video-block{display:flex;justify-content:center;margin:14px 0 12px}
+.video-frame{background:#f6f7f9;padding:12px;border-radius:12px;max-width:880px;width:100%;box-shadow:0 6px 20px rgba(2,6,23,0.04)}
+.video-frame iframe{width:100%;height:420px;border-radius:8px;border:0;display:block}
+
+/* Slightly smaller height for mobile */
+@media (max-width:640px){
+  .video-frame iframe{height:220px}
+}
+
+/* Service cards */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 4px 16px rgba(2,6,23,0.04);transition:transform .18s, box-shadow .18s;cursor:default}
+.card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.08)}
+.card h3{margin:0 0 8px;font-size:1rem;color:var(--blue)}
+.card p{color:var(--text-dark)}
+.services{background:var(--section-blue);padding-top:88px;padding-bottom:56px} /* increased top spacing to reinforce content block */
+.section h2{margin:0 0 8px;color:var(--blue);font-weight:800;font-size:1.6rem} /* stronger title for sections */
+
+/* Highlighted stripe for the gross-cleaning and fine-cleaning service buttons (tarja azul) */
+.card[data-service="bruta"] .service-open,
+.card[data-service="bruta"] .service-open:hover,
+.card[data-service="fina"] .service-open,
+.card[data-service="fina"] .service-open:hover,
+.card[data-service="vidros"] .service-open,
+.card[data-service="vidros"] .service-open:hover,
+.card[data-service="preparo"] .service-open,
+.card[data-service="preparo"] .service-open:hover {
+  background: linear-gradient(90deg,var(--blue),#094267);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 20px rgba(6,49,78,0.14);
+}
+
+/* small highlight styling for the inline word */
+.highlight-word{background:linear-gradient(90deg,rgba(6,49,78,0.07),rgba(9,66,103,0.03));padding:2px 6px;border-radius:6px;font-weight:700}
+
+/* Before/After */
+.before-after{background:var(--bg)} /* keep before/after white */
+.before-after .ba-grid{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  justify-content:center; /* recentre o comparador quando a coluna lateral for removida */
+}
+.ba-card{position:relative;flex:1;overflow:hidden;border-radius:12px;background:#111}
+.ba-card img{width:100%;height:320px;object-fit:cover;display:block;filter:contrast(0.92)}
+.ba-rail{position:relative}
+.ba-rail.after{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden}
+.ba-rail.after img{width:200%;transform:translateX(-50%)}
+.label{position:absolute;left:12px;top:12px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 10px;border-radius:8px;font-weight:700;font-size:0.85rem}
+.slider-control{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center}
+.slider-control input[type=range]{width:90%}
+
+/* mini before/after */
+/* esconder a coluna lateral de imagens estáticas mantendo a estrutura HTML inalterada */
+.ba-cards{display:none;width:0;overflow:hidden}
+.mini{height:140px;border-radius:12px;overflow:hidden;position:relative}
+.mini-before,.mini-after{position:absolute;inset:0;background-size:cover;background-position:center;transition:clip-path .28s ease}
+.mini-after{clip-path: inset(0 100% 0 0)}
+
+/* Features */
+.features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.feature{background:var(--card);padding:14px;border-radius:12px;display:flex;align-items:center;gap:10px}
+.ok{background:var(--green);color:white;border-radius:8px;padding:6px 8px;font-weight:700}
+
+/* CTA strong */
+.cta-strong{background:linear-gradient(90deg,rgba(40,167,69,0.14),rgba(31,164,58,0.14));color:var(--text-dark);padding:22px;border-radius:14px;margin:20px 0;border:1px solid rgba(40,167,69,0.12)}
+.cta-inner{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.cta-strong h2{color:var(--text-dark)}
+.cta-strong .btn.whatsapp{background:linear-gradient(90deg,var(--green),#1fa43a);color:white}
+
+/* About & contact */
+.contact-inner{display:flex;gap:18px;align-items:center}
+.map-placeholder img{width:280px;border-radius:12px;object-fit:cover}
+
+/* Footer - blue band with contact & map */
+.footer-band{
+  /* reduced vertical padding (~20% less) and refreshed modern gradient look */
+  background: linear-gradient(120deg, rgba(6,49,78,0.96) 0%, rgba(9,66,103,0.92) 60%);
+  color:#fff;
+  padding:14px 0; /* reduced from 18px to ~14px */
+  border-top:3px solid rgba(255,255,255,0.04);
+  box-shadow: 0 -6px 30px rgba(4,24,38,0.12);
+  border-radius:12px 12px 0 0;
+}
+.footer-top{
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+  justify-content:space-between;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 20px;
+  flex-wrap:wrap;
+}
+.footer-logo{
+  /* reduce footer logo height by ~20% relative to header max (header logo max-height:64px) */
+  max-height:51px; /* 64px * 0.8 = 51.2px */
+  height:auto;
+  display:block;
+  border-radius:8px;
+  box-shadow:0 8px 20px rgba(2,6,23,0.12);
+  background:rgba(255,255,255,0.02);
+  padding:4px;
+}
+
+/* Make contact block and map behave responsively */
+.footer-contact{
+  flex:1 1 320px; /* allow to grow/shrink, min comfortable width */
+  min-width:240px;
+  margin-bottom:12px;
+}
+.footer-contact h4{margin:0 0 6px;color:#fff}
+.footer-contact p{margin:6px 0;color:rgba(255,255,255,0.95)}
+.footer-link{color:rgba(255,255,255,0.95);text-decoration:underline}
+.footer-link:hover{opacity:0.9}
+
+/* Map becomes flexible and scales down on small screens */
+.footer-map{
+  /* reduced footprint (~20% smaller) and modernized visual treatment */
+  flex:0 0 256px; /* 320px * 0.8 = 256px */
+  width:256px;
+  height:144px;    /* 180px * 0.8 = 144px */
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.06);
+  min-width:160px;
+  margin-left:8px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.14);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+.footer-map iframe{width:100%;height:100%;border:0}
+
+/* When the available width is narrow, stack vertically and make map full width */
+@media (max-width:880px){
+  .footer-top{padding:0 14px;}
+  .footer-map{flex:1 1 100%;width:100%;height:200px;margin-left:0;margin-top:10px;}
+  .footer-contact{min-width:0;}
+}
+
+/* Bottom footer */
+.site-footer{padding:16px 0;margin-top:20px;background:transparent}
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  color:var(--blue);
+  flex-wrap:wrap; /* allow wrapping on smaller devices */
+  padding:8px 20px;
+}
+
+/* footer left block grows, nav stacks when needed */
+.footer-inner > div:first-child{flex:1 1 240px;min-width:180px}
+.footer-nav{display:flex;gap:10px;flex:0 1 auto;align-items:center}
+.footer-nav a{color:var(--blue);margin-left:12px;text-decoration:none;font-weight:600;white-space:nowrap}
+.footer-semantic{color:rgba(43,52,64,0.85);font-size:0.95rem}
+
+/* small screens: center and stack footer items */
+@media (max-width:640px){
+  .footer-inner{padding:12px;align-items:flex-start}
+  .footer-nav{width:100%;justify-content:flex-start;margin-top:8px}
+  .footer-nav a{margin-left:0;margin-right:12px}
+}
+
+/* Floating action button */
+.fab{position:fixed;right:18px;bottom:18px;background:var(--green);width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 8px 30px rgba(42,164,79,0.24);z-index:80}
+.fab img{width:28px;height:28px}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
+.modal-content{background:white;padding:20px;border-radius:12px;max-width:720px;width:100%;position:relative;box-shadow:0 12px 40px rgba(2,6,23,0.16)}
+.modal-close{position:absolute;top:12px;right:12px;border:0;background:none;font-size:1.05rem;cursor:pointer}
+
+/* Responsive */
+@media (max-width:980px){
+  .hero-inner{grid-template-columns:1fr;gap:18px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .ba-grid{flex-direction:column}
+  .ba-cards{width:100%}
+  .map-placeholder img{width:100%}
+}
+
+@media (max-width:640px){
+  .header-inner{padding:8px 12px}
+  .brand img{max-height:56px;height:auto} /* slightly smaller logo on mobile to avoid overlap */
+  .nav-toggle{display:block}
+  .nav-list{position:fixed;top:var(--header-h);right:12px;background:white;border-radius:12px;padding:10px;flex-direction:column;display:none;box-shadow:0 12px 30px rgba(2,6,23,0.08)}
+  .nav-list.show{display:flex}
+  .cards{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .cta-inner{flex-direction:column;align-items:flex-start}
+  .fab{right:12px;bottom:12px;width:56px;height:56px}
+  .hero h1{font-size:1.5rem}
+}
