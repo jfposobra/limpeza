@@ -206,28 +206,8 @@ qsa('.nav-list a, .footer-nav a').forEach(a=>{
   /* keep navigation labels intact */
 });
 
-/* Before/After range control */
-const baRange = qs('#baRange');
-const baAfter = qs('.ba-rail.after');
-const minis = qsa('.mini');
-baRange.addEventListener('input', e=>{
-  const v = Number(e.target.value);
-  baAfter.style.width = v + '%';
-  minis.forEach(m=>{
-    const after = m.querySelector('.mini-after');
-    after.style.clipPath = `inset(0 ${100 - v}% 0 0)`;
-  });
-});
-
-/* Mini cards hover to animate */
-minis.forEach(m=>{
-  m.addEventListener('mouseenter', ()=> {
-    m.querySelector('.mini-after').style.clipPath = 'inset(0 0% 0 0)';
-  });
-  m.addEventListener('mouseleave', ()=> {
-    m.querySelector('.mini-after').style.clipPath = 'inset(0 100% 0 0)';
-  });
-});
+/* Before/After comparator removed — replaced by a static responsive image in the DOM.
+   Old range/mini interaction code intentionally disabled to avoid console errors. */
 
 /* Hover animations for buttons are in CSS; add small click feedback */
 qsa('.btn').forEach(b=>{
