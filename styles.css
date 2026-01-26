@@ -225,8 +225,8 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .slider-control input[type=range]{width:90%}
 
 /* mini before/after */
-/* esconder a coluna lateral de imagens estáticas mantendo a estrutura HTML inalterada */
-.ba-cards{display:none;width:0;overflow:hidden}
+/* mostrar a coluna lateral de imagens estáticas para que todas as imagens fiquem visíveis */
+.ba-cards{display:flex;width:auto;overflow:visible;gap:12px;align-items:flex-start}
 .mini{height:140px;border-radius:12px;overflow:hidden;position:relative}
 .mini-before,.mini-after{position:absolute;inset:0;background-size:cover;background-position:center;transition:clip-path .28s ease}
 .mini-after{clip-path: inset(0 100% 0 0)}
