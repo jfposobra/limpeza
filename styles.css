@@ -202,12 +202,6 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .highlight-word{background:linear-gradient(90deg,rgba(6,49,78,0.07),rgba(9,66,103,0.03));padding:2px 6px;border-radius:6px;font-weight:700}
 
 /* Before/After */
-/* Ensure the 'Antes e Depois' section remains visible below the fixed header when navigated to,
-   by reserving space equal to the header height plus a small gap. This keeps the image interactable
-   when users open the anchor or click the menu item. */
-#antes-depois, .before-after{
-  scroll-margin-top: calc(var(--header-h) + 12px);
-}
 .before-after{background:var(--bg)} /* keep before/after white */
 .before-after .ba-grid{
   display:flex;
@@ -225,8 +219,8 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .slider-control input[type=range]{width:90%}
 
 /* mini before/after */
-/* mostrar a coluna lateral de imagens estáticas para que todas as imagens fiquem visíveis */
-.ba-cards{display:flex;width:auto;overflow:visible;gap:12px;align-items:flex-start}
+/* esconder a coluna lateral de imagens estáticas mantendo a estrutura HTML inalterada */
+.ba-cards{display:none;width:0;overflow:hidden}
 .mini{height:140px;border-radius:12px;overflow:hidden;position:relative}
 .mini-before,.mini-after{position:absolute;inset:0;background-size:cover;background-position:center;transition:clip-path .28s ease}
 .mini-after{clip-path: inset(0 100% 0 0)}
