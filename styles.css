@@ -245,24 +245,76 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 }
 
 /* Small screens: stack slideshow as a top-right badge and reduce height to prevent overflow */
-@media (max-width:719px){
-  .banner-section .banner-base{height:clamp(359px, 50.33vh, 551px);background-position:center} /* +12% */
+@media (max-width:768px){
+  /* Stack banner vertically: left (text) then right (slides) */
+  .banner-section .banner-base{
+    display:flex;
+    flex-direction:column;
+    align-items:center;            /* center content horizontally */
+    justify-content:flex-start;
+    height:auto;                   /* let content define height on mobile */
+    padding-top:20px;              /* reduce padding for mobile */
+    padding-left:20px;
+    padding-right:20px;
+    background-position:center;
+  }
+
+  /* Make slideshow a full-width block below the text */
   .banner-section .banner-slides{
-    position:absolute;
-    right:0;
-    top:0;
-    width:68%;
-    height:100%;
-    border-radius:0;
+    position:relative;             /* flow in document below the left content */
+    right:auto;
+    top:auto;
+    width:100% !important;         /* full width on mobile */
+    height:auto !important;        /* allow image to set height */
+    border-radius:12px;
     overflow:hidden;
     padding:0;
-    margin:0;
-    pointer-events:none;
+    margin:14px 0 0 0;
+    pointer-events:auto;           /* keep buttons clickable if any overlay exists */
+    background:transparent;
   }
+
+  /* Each slide should behave like a normal responsive image block */
   .banner-section .banner-slide,
-  .banner-slide{transform:none}
+  .banner-slide{
+    position:relative;
+    inset:auto;
+    width:100% !important;
+    height:auto !important;        /* let image determine height */
+    object-fit:cover !important;   /* ensure cover behavior */
+    object-position:center !important;
+    opacity:0;
+    transition:opacity 900ms ease-in-out;
+    display:block;
+    transform:none !important;
+    padding:0;
+    margin:0;
+  }
+
+  /* visible slide */
   .banner-section .banner-slide.active,
-  .banner-slide.active{transform:none}
+  .banner-slide.active{
+    opacity:1;
+  }
+
+  /* Center textual content inside the banner on mobile */
+  .banner-base .container,
+  .banner-base .brand,
+  .hero-inner,
+  .hero-text {
+    width:100%;
+    text-align:center;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* Ensure hero CTA buttons remain visible and sized for touch */
+  .hero-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .btn{min-height:44px;min-width:120px}
+
+  /* Slight spacing adjustment to prevent overlap */
+  .banner-section .banner-base + .hero { padding-top:18px; }
+
 }
 
 /* Ensure banner never overlaps adjacent content: hero spacing already accounted for via padding-top on body */
