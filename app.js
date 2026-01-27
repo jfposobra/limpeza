@@ -39,6 +39,15 @@ qsa('a[href^="#"]').forEach(a=>{
     if(href && href.startsWith('#')){
       e.preventDefault();
       const el = document.querySelector(href);
+      // if navigating to Antes e Depois, reveal it; otherwise ensure it's hidden
+      if(href === '#antes-depois') {
+        if(antesSection) {
+          antesSection.style.display = 'block';
+          antesSection.setAttribute('aria-hidden','false');
+        }
+      } else {
+        if(typeof hideAntesSection === 'function') hideAntesSection();
+      }
       if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
       // close mobile nav if open
       qs('#navList').classList.remove('show');
@@ -55,6 +64,8 @@ const servDropdown = qs('#servDropdown');
 if(servToggle && servDropdown){
   servToggle.addEventListener('click', (e)=>{
     e.preventDefault();
+    // hide Antes e Depois when other dropdowns are opened
+    if(typeof hideAntesSection === 'function') hideAntesSection();
     const open = servDropdown.style.display === 'block';
     // close videos dropdown if open
     const videosDd = qs('#videosDropdown');
@@ -107,6 +118,8 @@ const videosDropdown = qs('#videosDropdown');
 if(videosToggle && videosDropdown){
   videosToggle.addEventListener('click', (e)=>{
     e.preventDefault();
+    // hide Antes e Depois when other dropdowns are opened
+    if(typeof hideAntesSection === 'function') hideAntesSection();
     // toggle display
     const open = videosDropdown.style.display === 'block';
     // hide other dropdowns
@@ -294,3 +307,59 @@ if(footerMap){
     });
   }
 }
+
+/* --- Antes e Depois reveal + simple gallery lightbox (uses local image files and preserves anchors) --- */
+const antesLink = qs('a[href="#antes-depois"]');
+const antesSection = qs('#antes-depois');
+const seoWrap = qs('.seo-micro-wrap');
+
+function hideAntesSection(){
+  if(!antesSection) return;
+  antesSection.style.display = 'none';
+  antesSection.setAttribute('aria-hidden','true');
+}
+
+if(antesLink && antesSection && seoWrap){
+  antesLink.addEventListener('click', (e)=>{
+    e.preventDefault();
+    // reveal section (was hidden by default)
+    antesSection.style.display = 'block';
+    antesSection.setAttribute('aria-hidden','false');
+
+    // small delay to allow layout then scroll to just below the video title block
+    setTimeout(()=>{
+      // scroll so the end of seo-micro-wrap is aligned (i.e., position just below the video)
+      seoWrap.scrollIntoView({behavior:'smooth', block:'end'});
+      // focus the revealed section for accessibility
+      antesSection.setAttribute('tabindex','-1');
+      antesSection.focus({preventScroll:true});
+    }, 80);
+  });
+}
+
+/* Gallery lightbox handlers */
+const lightbox = qs('#imgLightbox');
+const lightboxImg = qs('#imgLightboxImg');
+const lightboxClose = qs('#imgLightboxClose');
+
+qsa('.ba-thumb').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    const src = btn.dataset.src;
+    if(!src) return;
+    lightboxImg.src = src;
+    lightbox.style.display = 'flex';
+    lightbox.setAttribute('aria-hidden','false');
+    // prevent body scroll while open
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeLightbox(){
+  lightbox.style.display = 'none';
+  lightbox.setAttribute('aria-hidden','true');
+  lightboxImg.src = '';
+  document.body.style.overflow = '';
+}
+if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+if(lightbox) lightbox.addEventListener('click', (e)=> { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeLightbox(); });

@@ -117,19 +117,34 @@
       <p class="seo-micro">Actuamos na Amadora e na região de Lisboa, incluindo Oeiras, Sintra, Cascais, Odivelas, Loures e Almada.</p>
     </div>
 
-    <section id="antes-depois" class="section before-after">
+    <section id="antes-depois" class="section before-after" style="display:none;">
       <div class="container">
         <h2>Antes e Depois</h2>
-        <p class="muted">Veja a transformação com nossos serviços</p>
+        <p class="muted">Veja a transformação com nossos serviços.</p>
 
         <div class="ba-grid">
           <div class="ba-card">
-            <!-- Static, responsive Antes e Depois image (replaces interactive comparator) -->
-            <img src="/antes e depois.png" alt="Antes e Depois - J&amp;F Limpeza Pós-Obra" class="ba-static" />
+            <!-- Responsive gallery with local images (hidden by default until revealed) -->
+            <div class="ba-gallery">
+              <button class="ba-thumb" data-src="antes e depois.png" aria-label="Ver imagem Antes">
+                <img src="antes e depois.png" alt="Antes - J&F Limpeza Pós-Obra" />
+              </button>
+              <button class="ba-thumb" data-src="antes-e-depois.1.png.png" aria-label="Ver imagem Depois">
+                <img src="antes-e-depois.1.png.png" alt="Depois - J&F Limpeza Pós-Obra" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Image lightbox modal for Antes e Depois gallery -->
+    <div id="imgLightbox" class="img-lightbox" aria-hidden="true" style="display:none;">
+      <div class="img-lightbox-inner" role="dialog" aria-modal="true">
+        <button class="img-lightbox-close" id="imgLightboxClose" aria-label="Fechar">✕</button>
+        <img id="imgLightboxImg" src="" alt="Ampliação" />
+      </div>
+    </div>
 
     <section class="section features">
       <div class="container">

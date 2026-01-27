@@ -208,7 +208,8 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 #antes-depois, .before-after{
   scroll-margin-top: calc(var(--header-h) + 12px);
 }
-.before-after{background:var(--bg)} /* keep before/after white */
+/* hidden by default; revealed via JS when menu item is clicked */
+.before-after{display:none;background:var(--bg)} /* keep before/after white */
 .before-after .ba-grid{
   display:flex;
   gap:18px;
@@ -216,15 +217,18 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
   justify-content:center; /* recentre o comparador quando a coluna lateral for removida */
 }
 .ba-card{position:relative;flex:1;overflow:hidden;border-radius:12px;background:transparent}
-.ba-card img{width:100%;height:320px;object-fit:cover;display:block;filter:contrast(0.92)}
-/* static before/after image inside the card */
-.ba-static{display:block;border-radius:12px}
-.ba-rail{position:relative}
-.ba-rail.after{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden}
-.ba-rail.after img{width:200%;transform:translateX(-50%)}
-.label{position:absolute;left:12px;top:12px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 10px;border-radius:8px;font-weight:700;font-size:0.85rem}
-.slider-control{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center}
-.slider-control input[type=range]{width:90%}
+
+/* Gallery inside before/after */
+.ba-gallery{display:flex;gap:12px;flex-wrap:wrap;align-items:stretch;justify-content:center}
+.ba-thumb{border:0;background:transparent;padding:0;border-radius:12px;overflow:hidden;cursor:pointer;width:48%;min-width:160px;max-width:420px;display:inline-block}
+.ba-thumb img{width:100%;height:320px;object-fit:cover;display:block;border-radius:12px;transition:transform .18s;box-shadow:0 8px 30px rgba(11,105,163,0.06)}
+.ba-thumb:hover img{transform:scale(1.02)}
+
+/* Lightbox styles */
+.img-lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.75);display:flex;align-items:center;justify-content:center;z-index:110;padding:18px}
+.img-lightbox-inner{position:relative;max-width:1100px;width:100%;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.img-lightbox img{max-width:100%;max-height:86vh;border-radius:10px;box-shadow:0 20px 60px rgba(2,6,23,0.6)}
+.img-lightbox-close{position:absolute;top:-18px;right:-18px;background:#fff;border:0;border-radius:999px;padding:8px 10px;font-size:1.05rem;cursor:pointer;box-shadow:0 8px 20px rgba(2,6,23,0.2)}
 
 /* mini before/after */
 /* mostrar a coluna lateral de imagens estáticas para que todas as imagens fiquem visíveis */
