@@ -29,6 +29,15 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark);paddi
 html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .container{max-width:var(--maxw);margin:0 auto;padding:20px}
 
+/* Ensure banner's internal container expands full-width when placed inside the banner-base */
+.banner-base .container,
+.banner-section .container{
+  max-width:none;
+  width:100%;
+  padding-left:0;
+  padding-right:0;
+}
+
 /* Header */
 .site-header{position:fixed;top:0;left:0;right:0;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid #eee;z-index:40;padding-bottom:20px}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -158,6 +167,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 */
 .banner-section{
   width:100%;
+  max-width:none;
   display:block;
   padding:0;
   margin:0;
@@ -170,6 +180,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .banner-section .banner-base,
 .banner-base{
   width:100%;
+  max-width:none;
   height:clamp(384px, 57.40vh, 767px); /* increased ~12% so left text & logo are more visible */
   border-radius:0;
   overflow:hidden;
@@ -336,6 +347,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .banner-base{
   width:100%;
   max-width:none;
+  display:block;
   height:clamp(428px, 65.95vh, 791px); /* increased ~12% so left content (text/logo) is more visible */
   border-radius:0; /* full-bleed banner across the page */
   overflow:hidden;
