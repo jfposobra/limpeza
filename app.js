@@ -308,6 +308,27 @@ if(footerMap){
   }
 }
 
+/* --- Banner slideshow: automatic fade loop using local assets (no controls visible) --- */
+(function initBannerSlideshow(){
+  try{
+    const slides = Array.from(document.querySelectorAll('.banner-slide'));
+    if(!slides.length) return;
+    let current = 0;
+    const total = slides.length;
+    const intervalMs = 4500; // switch every 4.5s (between 4–5s as requested)
+    slides.forEach((s,i)=>{
+      s.style.transition = 'opacity 900ms ease-in-out';
+      if(i === 0) s.classList.add('active');
+    });
+    setInterval(()=>{
+      const prev = current;
+      current = (current + 1) % total;
+      slides[prev].classList.remove('active');
+      slides[current].classList.add('active');
+    }, intervalMs);
+  }catch(e){console.error('Slideshow init error', e)}
+})();
+
 /* --- Antes e Depois reveal + simple gallery lightbox (uses local image files and preserves anchors) --- */
 const antesLink = qs('a[href="#antes-depois"]');
 const antesSection = qs('#antes-depois');

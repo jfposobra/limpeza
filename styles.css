@@ -1,4 +1,5 @@
 :root{
+  --header-h:84px; /* global header height available site-wide */
   --blue:#06314e; /* slightly darker institutional blue */
   --green:#28a745;
   --muted:#6b7280;
@@ -18,6 +19,9 @@
   .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
 }
 
+/* ensure fixed header doesn't hide banner/title above or overlap content below */
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark);padding-top:calc(var(--header-h) + 24px)}
+
 /* small helper: make programmatically clickable images show pointer and subtle focus */
 .clickable-img{cursor:pointer;outline-offset:4px}
 
@@ -26,7 +30,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .container{max-width:var(--maxw);margin:0 auto;padding:20px}
 
 /* Header */
-.site-header{--header-h:84px;position:fixed;top:0;left:0;right:0;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid #eee;z-index:40;padding-bottom:20px}
+.site-header{position:fixed;top:0;left:0;right:0;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid #eee;z-index:40;padding-bottom:20px}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:10px}
 .brand img{width:auto;max-height:64px;height:auto;display:block}
@@ -148,14 +152,212 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text-dark)}
 .btn.small{padding:8px 10px;font-size:0.9rem}
 .btn.whatsapp{background:linear-gradient(90deg,var(--green),#1fa43a);color:white;border-radius:12px}
 
-/* Hero */
-.hero{padding-top:140px;padding-bottom:36px;background:var(--bg)} /* keep hero white; increased top padding to clear fixed header */
+/* Banner section - full width row below header (consolidated & responsive)
+   - Flexible clamped heights, slide container adapts from right-column on desktop to stacked/full on small screens.
+   - Slides use object-fit cover and scale only when needed; transitions remain smooth.
+*/
+.banner-section{
+  width:100%;
+  display:block;
+  padding:0;
+  margin:0;
+  box-sizing:border-box;
+  position:relative;
+  z-index:10;
+}
+
+/* banner base: full-bleed, flexible height that respects header spacing */
+.banner-section .banner-base,
+.banner-base{
+  width:100%;
+  height:clamp(384px, 57.40vh, 767px); /* increased ~12% so left text & logo are more visible */
+  border-radius:0;
+  overflow:hidden;
+  position:relative;
+  background-image: url('banner-slide-1.jpg.jpg');
+  background-size:cover;
+  background-position:left center;
+  box-shadow:0 12px 40px rgba(2,6,23,0.06);
+  display:block;
+  /* left banner content padding to avoid text hugging top/left edges */
+  padding-top:40px;
+  padding-left:40px;
+}
+
+/* Slideshow container: single right column occupying 60% of the banner and full height */
+.banner-slides{
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  width:68% !important; /* enforce a single right column at 68% */
+  height:100% !important; /* ensure container equals banner height */
+  display:block;
+  overflow:hidden; /* slides must fully fill this area */
+  padding:0; /* remove internal padding that could create visual limits */
+  margin:0;  /* remove external margin */
+  pointer-events:none; /* preserve interactivity on left area */
+  background:transparent;
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  transition:none;
+}
+
+/* Each slide fills the slideshow container and keeps aspect via object-fit */
+.banner-section .banner-slide,
+.banner-slide{
+  position:absolute;
+  inset:0;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;       /* ensure image covers the entire slide area */
+  object-position:center !important; /* center the image content */
+  opacity:0;
+  transition:opacity 900ms ease-in-out;
+  will-change:opacity;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
+  transform-origin:center center;
+  transform:none !important; /* ensure no scaling is applied */
+  padding:0;
+  margin:0;
+}
+
+/* visible slide */
+.banner-section .banner-slide.active,
+.banner-slide.active{
+  opacity:1;
+  transform:none !important; /* show without scaling */
+}
+
+/* Desktop: ensure left artwork remains visible and slideshow fits as a right column */
+@media (min-width:1100px){
+  .banner-section .banner-base{height:clamp(503px, 59.92vh, 862.85px)} /* +12% */
+  .banner-section .banner-slides{width:68%;right:0}
+}
+
+/* Medium screens: slightly narrower slide column */
+@media (max-width:1100px) and (min-width:720px){
+  .banner-section .banner-slides{width:68%;right:0}
+  .banner-section .banner-base{background-position:center left}
+}
+
+/* Small screens: stack slideshow as a top-right badge and reduce height to prevent overflow */
+@media (max-width:719px){
+  .banner-section .banner-base{height:clamp(359px, 50.33vh, 551px);background-position:center} /* +12% */
+  .banner-section .banner-slides{
+    position:absolute;
+    right:0;
+    top:0;
+    width:68%;
+    height:100%;
+    border-radius:0;
+    overflow:hidden;
+    padding:0;
+    margin:0;
+    pointer-events:none;
+  }
+  .banner-section .banner-slide,
+  .banner-slide{transform:none}
+  .banner-section .banner-slide.active,
+  .banner-slide.active{transform:none}
+}
+
+/* Ensure banner never overlaps adjacent content: hero spacing already accounted for via padding-top on body */
+
+/* Ensure banner does not overlap content below: hero keeps a small top spacing only */
+.hero{padding-top:36px;padding-bottom:36px;background:var(--bg)} /* increased top padding so hero title isn't overlapped by the larger banner */
 .hero .container{max-width:100%;padding-left:20px;padding-right:20px}
-.hero-inner{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+.hero-inner{display:block;gap:28px;align-items:flex-start}
 .hero h1{font-size:2rem;margin:0;color:var(--blue)}
 .hero p{color:var(--muted);margin:8px 0 16px}
 .seo-micro{background:var(--section-gray);padding:12px;border-radius:10px;color:var(--text-dark);margin-top:10px}
 .hero-image img{width:100%;border-radius:12px;box-shadow:0 8px 30px rgba(11,105,163,0.08)}
+
+/* Banner base + slideshow overlay
+   - Uses a base banner background (keeps left-side design with text/seal/logo visually intact)
+   - Right area hosts a responsive slideshow that fades between images.
+   - Consolidated rules ensure consistent responsive behavior across the page. */
+.hero-banner{display:flex;align-items:center;justify-content:flex-end}
+.banner-base{
+  width:100%;
+  max-width:none;
+  height:clamp(428px, 65.95vh, 791px); /* increased ~12% so left content (text/logo) is more visible */
+  border-radius:0; /* full-bleed banner across the page */
+  overflow:hidden;
+  position:relative;
+  background-image: url('banner-slide-1.jpg.jpg'); /* fallback/base look; preserves left design */
+  background-size:cover;
+  background-position:left center; /* keep left-side artwork and text area visible on larger viewports */
+  box-shadow:0 12px 40px rgba(2,6,23,0.06);
+}
+
+/* Slideshow container aligned to right half of banner */
+.banner-slides{
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:68%; /* occupy 68% of banner width */
+  height:100%; /* ensure container fills the banner height */
+  display:block;
+  overflow:hidden; /* remove visible overflow and implicit borders */
+  padding:0;
+  margin:0;
+  pointer-events:none; /* avoid intercepting clicks intended for left side */
+  background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0)); /* transparent overlay */
+  /* enforce background behavior when slides are used as background images */
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+}
+
+/* Each slide fills the container, keeps aspect & not distorted */
+.banner-slide{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  transition:opacity 900ms ease-in-out;
+  will-change:opacity,transform;
+  display:block;
+  padding:0;
+  margin:0;
+}
+
+/* active slide visible */
+.banner-slide.active{opacity:1}
+
+/* make sure left text never overlaps the slideshow on large screens */
+@media (min-width:1100px){
+  .hero-inner{grid-template-columns:1fr 520px}
+  .banner-base{max-width:520px;height:739px} /* desktop max height increased (~12%) */
+  .banner-slides{width:100%}
+}
+
+/* Mobile adjustments: banner height reduced and stacked layout */
+@media (max-width:980px){
+  .banner-section .banner-base{height:494px;width:100%} /* increased ~12% to improve visibility of left text/logo */
+  .banner-section .banner-slides{width:38%;right:8px} /* narrower on mobile so left artwork and overlay text remain visible */
+  .banner-section .banner-base{background-position:center}
+  .hero-inner{display:block}
+  .hero h1{font-size:1.4rem}
+}
+
+/* Ensure slides are not selectable and have no transform scaling */
+.banner-slide{
+  user-select:none;
+  -webkit-user-drag:none;
+  transform-origin:center center;
+  transform:none !important;
+  transition:opacity 900ms ease-in-out;
+  will-change:opacity;
+}
 
 /* Sections */
 .section{padding:48px 0}
