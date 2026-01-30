@@ -181,7 +181,12 @@ box-shadow: 0 10px 30px rgba(2,6,23,0.10);
 
 
 /* Sections */
-.section{padding:48px 0}
+/* Sections (desktop default) */
+.section{padding:72px 0}
+
+@media (max-width: 768px){
+  .section{padding:48px 0}
+}
 .section h2{margin:0 0 8px;color:var(--blue);font-weight:700}
 .section p, .section .muted{color:var(--muted)}
 .muted{color:var(--muted)}
@@ -447,3 +452,33 @@ box-shadow: 0 10px 30px rgba(2,6,23,0.10);
   display: block;
 }
 
+/* ===== Depoimentos (cards premium) ===== */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:16px;
+  margin-top:14px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid rgba(15, 23, 42, .08);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 8px 22px rgba(15, 23, 42, .06);
+}
+
+.card p{margin:0 0 10px}
+.card p:last-child{margin:0}
+
+@media (max-width: 900px){
+  .cards-grid{grid-template-columns:1fr}
+}
+
+/* CTA depoimentos – alinhamento premium */
+@media (min-width: 901px){
+  #depoimentos .cta-buttons{
+    display:flex;
+    justify-content:center;
+  }
+}
