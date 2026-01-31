@@ -3,12 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>J&F Limpeza Pós-Obra</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="https://img.icons8.com/ios-filled/50/000000/broom.png" />
-</head>
+
+  <title>J&F Limpeza Pós-Obra | Amadora e Grande Lisboa</title>
+  <meta name="description" content="Limpeza pós-obra profissional na Amadora e Grande Lisboa. Orçamento rápido, equipa experiente e acabamento impecável." />
+
   <meta name="google-site-verification" content="Ktz94oMOBlokYVm5ux2ZmmNfAKo7njqxzF1BSH55mPE" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
 <body>
+
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
@@ -21,52 +26,62 @@
       <nav class="main-nav" id="mainNav">
         <button class="nav-toggle" id="navToggle" aria-expanded="false">☰</button>
         <ul class="nav-list" id="navList">
-          <li><a href="#hero">Início</a></li>
-          <li class="has-dropdown">
-            <a href="#servicos" id="servicosToggle">Serviços <span class="caret">▾</span></a>
-            <ul class="dropdown" id="servDropdown" style="display:none" aria-hidden="true">
-              <li>
-                <button class="service-link" data-service="bruta" aria-haspopup="true">
-                  <strong>Limpeza Grossa Pós-Obra</strong>
-                </button>
-                <p class="dropdown-desc">Serviço inicial destinado à remoção de resíduos e sujidade grossa. Inclui: varredura, recolha de entulhos e limpeza de superfícies grossas.</p>
-              </li>
-              <li>
-                <button class="service-link" data-service="fina" aria-haspopup="true">
-                  <strong>Limpeza Fina Pós-Obra</strong>
-                </button>
-                <p class="dropdown-desc">Limpeza minuciosa e detalhada de todas as superfícies, eliminando poeiras finas e manchas. Inclui: lavagem de superfícies, aspiração fina e remoção de marcas.</p>
-              </li>
-              <li>
-                <button class="service-link" data-service="vidros" aria-haspopup="true">
-                  <strong>Higienização de Vidros e Caixilharias</strong>
-                </button>
-                <p class="dropdown-desc">Limpeza especializada de vidros, janelas, portas envidraçadas e caixilharias. Inclui: limpeza de vidros interiores/exteriores e perfis.</p>
-              </li>
-              <li>
-                <button class="service-link" data-service="preparo" aria-haspopup="true">
-                  <strong>Preparação do Ambiente para Uso Imediato</strong>
-                </button>
-                <p class="dropdown-desc">Serviço completo para deixar o espaço organizado e utilizável após a obra. Inclui: organização, limpeza final e verificação de áreas críticas.</p>
-              </li>
-            </ul>
-          </li>
-          <li class="has-dropdown">
-            <a href="#" id="videosToggle">Vídeos <span class="caret">▾</span></a>
-            <ul class="dropdown" id="videosDropdown" style="display:none">
-              <li>
-                <button type="button" class="video-item">Demonstração de Limpeza</button>
-              </li>
-              <li>
-                <button type="button" class="video-item">Executando o Pós-Obra</button>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#antes-depois">Antes e Depois</a></li>
-          <li><a href="#sobre">Sobre Nós</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
+  <li><a href="#hero">Início</a></li>
+
+  <!-- Serviços -->
+  <li class="has-dropdown">
+    <a href="#servicos" id="servicosToggle">Serviços <span class="caret">▾</span></a>
+
+    <ul class="dropdown" id="servDropdown" style="display:none" aria-hidden="true">
+      <li>
+        <button class="service-link" data-service="bruta" aria-haspopup="true">
+          <strong>Limpeza Grossa Pós-Obra</strong>
+        </button>
+        <p class="dropdown-desc">Serviço inicial destinado à remoção de resíduos e sujidade grossa. Inclui: varredura, recolha de entulhos e limpeza de superfícies grossas.</p>
+      </li>
+
+      <li>
+        <button class="service-link" data-service="fina" aria-haspopup="true">
+          <strong>Limpeza Fina Pós-Obra</strong>
+        </button>
+        <p class="dropdown-desc">Limpeza minuciosa e detalhada de todas as superfícies, eliminando poeiras finas e manchas. Inclui: lavagem de superfícies, aspiração fina e remoção de marcas.</p>
+      </li>
+
+      <li>
+        <button class="service-link" data-service="vidros" aria-haspopup="true">
+          <strong>Higienização de Vidros e Caixilharias</strong>
+        </button>
+        <p class="dropdown-desc">Limpeza especializada de vidros, janelas, portas envidraçadas e caixilharias. Inclui: limpeza de vidros interiores/exteriores e perfis.</p>
+      </li>
+
+      <li>
+        <button class="service-link" data-service="preparo" aria-haspopup="true">
+          <strong>Preparação do Ambiente para Uso Imediato</strong>
+        </button>
+        <p class="dropdown-desc">Serviço completo para deixar o espaço organizado e utilizável após a obra. Inclui: organização, limpeza final e verificação de áreas críticas.</p>
+      </li>
+    </ul>
+  </li>
+
+  <!-- Vídeos -->
+  <li class="has-dropdown videos-menu">
+    <a href="#" id="videosToggle" role="button" aria-expanded="false">Vídeos <span class="caret">▾</span></a>
+
+    <ul class="dropdown" id="videosDropdown" style="display:none" aria-hidden="true">
+      <li>
+        <button type="button" class="video-item">Demonstração de Limpeza</button>
+      </li>
+      <li>
+        <button type="button" class="video-item">Executando o Pós-Obra</button>
+      </li>
+    </ul>
+  </li>
+
+  <li><a href="#antes-depois">Antes e Depois</a></li>
+  <li><a href="#sobre">Sobre Nós</a></li>
+  <li><a href="#contato">Contacto</a></li>
+</ul>
+</nav>
 
       <a class="btn primary" id="quoteBtn">Orçamento Gratuito</a>
     </div>
@@ -75,16 +90,15 @@
   <!-- Dedicated banner section placed below the fixed header -->
 <section class="banner-section" aria-label="Banner J&F Pós-Obra">
   <div class="banner-base">
-    <img class="banner-img" src="banner-base-1.png" alt="Banner J&F Pós-Obra">
+    <img class="banner-img" src="banner-base-1.png" alt="Limpeza pós-obra profissional na Amadora e Grande Lisboa - J&F Limpeza Pós-Obra">
   
     <!-- Slideshow (fica por cima, lado direito) -->
-    <div class="banner-slides" id="bannerSlides" aria-hidden="true">
-      <img class="banner-slide active" src="banner-slide-1.jpg" alt="Destaque 1">
-      <img class="banner-slide" src="banner-slide-2.jpg" alt="Destaque 2">
-      <img class="banner-slide" src="banner-slide-3.jpg" alt="Destaque 3">
-      <img class="banner-slide" src="banner-slide-4.jpg" alt="Destaque 4">
-    </div>
-  </div>
+<div class="banner-slides" id="bannerSlides" aria-hidden="true">
+  <img class="banner-slide active" src="banner-slide-1.jpg" alt="Limpeza grossa pós-obra em habitações e comércio na Amadora">
+  <img class="banner-slide" src="banner-slide-2 (1).jpg" alt="Limpeza fina e detalhada pós-obra em habitações na Grande Lisboa">
+  <img class="banner-slide" src="banner-slide-3 (1).jpg" alt="Higienização de vidros e caixilharias após obra em Lisboa">
+  <img class="banner-slide" src="banner-slide-4 (1).jpg" alt="Serviço profissional de limpeza pós-obra para espaços comerciais">
+</div>
 </section>
      
   <main>
@@ -101,9 +115,14 @@
           </ul>
 
           <div class="hero-cta">
-            <a class="btn whatsapp" id="whatsappHero">Falar com Especialista no WhatsApp</a>
+            <a class="btn whatsapp" id="whatsappHero"
+   href="https://wa.me/351912345678?text=Olá!%20Vim%20pelo%20site%20da%20J%26F%20e%20gostaria%20de%20um%20orçamento%20de%20limpeza%20pós-obra%20na%20Amadora%20ou%20Grande%20Lisboa."
+   target="_blank" rel="noopener">
+   Falar com Especialista no WhatsApp
+</a>
             <a class="btn ghost" href="#servicos">Ver Serviços</a>
           </div>
+<p class="social-proof">⭐⭐⭐⭐⭐ Clientes satisfeitos em Amadora e Grande Lisboa</p>
 
           <!-- Micro-bloco SEO A (após o Hero) -->
           <p class="seo-micro">Atendimento profissional de limpeza pós-obra na Amadora e Lisboa, com foco na preparação do espaço para uso imediato.</p>
@@ -313,6 +332,109 @@
     </div>
   </div>
 
-  <script type="module" src="app.js"></script>
+ <script type="module" src="app.js"></script>
+  <script>
+<script>
+(function () {
+  function setupDropdown(toggleId, dropdownId) {
+    const toggle = document.getElementById(toggleId);
+    const dropdown = document.getElementById(dropdownId);
+    if (!toggle || !dropdown) return;
+
+    function close() {
+      dropdown.style.display = "none";
+      dropdown.setAttribute("aria-hidden", "true");
+    }
+    function open() {
+      dropdown.style.display = "block";
+      dropdown.setAttribute("aria-hidden", "false");
+    }
+    function isOpen() {
+      return dropdown.style.display === "block";
+    }
+
+    // estado inicial
+    close();
+
+    // Clique/toque no toggle
+    const handler = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? close() : open();
+    };
+
+    toggle.addEventListener("click", handler, false);
+    toggle.addEventListener("touchstart", handler, { passive: false });
+
+    // Clique fora fecha (capture para não fechar na mesma ação)
+    document.addEventListener("click", function (e) {
+      if (dropdown.contains(e.target) || toggle.contains(e.target)) return;
+      close();
+    }, true);
+
+    document.addEventListener("touchstart", function (e) {
+      if (dropdown.contains(e.target) || toggle.contains(e.target)) return;
+      close();
+    }, true);
+  }
+
+  setupDropdown("servicosToggle", "servDropdown");
+  setupDropdown("videosToggle", "videosDropdown");
+})();
+</script>
+<script>
+(function () {
+  const servToggle = document.getElementById("servicosToggle");
+  const servDrop   = document.getElementById("servDropdown");
+
+  const vidToggle  = document.getElementById("videosToggle");
+  const vidDrop    = document.getElementById("videosDropdown");
+
+  if (!servToggle || !servDrop || !vidToggle || !vidDrop) return;
+
+  function closeAll() {
+    servDrop.style.display = "none";
+    servDrop.setAttribute("aria-hidden", "true");
+    servToggle.setAttribute("aria-expanded", "false");
+
+    vidDrop.style.display = "none";
+    vidDrop.setAttribute("aria-hidden", "true");
+    vidToggle.setAttribute("aria-expanded", "false");
+  }
+
+  function toggle(drop, toggleEl) {
+    const open = drop.style.display === "block";
+    closeAll();
+    if (!open) {
+      drop.style.display = "block";
+      drop.setAttribute("aria-hidden", "false");
+      toggleEl.setAttribute("aria-expanded", "true");
+    }
+  }
+
+  // Estado inicial coerente
+  closeAll();
+
+  // IMPORTANTÍSSIMO: captura o clique antes de outros scripts
+  servToggle.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggle(servDrop, servToggle);
+  }, true);
+
+  vidToggle.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggle(vidDrop, vidToggle);
+  }, true);
+
+  // Clicar fora fecha
+  document.addEventListener("click", function (e) {
+    const insideNav = e.target.closest("#mainNav");
+    if (!insideNav) closeAll();
+  }, true);
+})();
+</script>
+
 </body>
 </html>

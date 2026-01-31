@@ -598,3 +598,58 @@ box-shadow: 0 10px 30px rgba(2,6,23,0.10);
   outline: 3px solid rgba(11, 58, 92, .35);
   outline-offset: 4px;
 }
+/* FIX mobile: garante que o clique vá para o link, não para a seta */
+.caret {
+  pointer-events: none;
+}
+/* Mobile: dropdown aparece como "caixa" (submenu) e não como itens soltos */
+@media (max-width: 992px){
+  #navList .dropdown{
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  }
+
+  #navList .dropdown li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #navList .dropdown .video-item,
+  #navList .dropdown .service-link{
+    width: 100%;
+    text-align: left;
+  }
+}
+/* Mobile: dropdown de Vídeos abre como caixa (overlay), não como lista misturada */
+@media (max-width: 992px){
+  /* garante que o submenu possa "sair" do painel */
+  #navList{ overflow: visible; }
+
+  /* o LI do Vídeos vira referência para o overlay */
+  #navList .videos-menu{ position: relative; }
+
+  /* o dropdown do Vídeos fica absoluto (caixa) */
+  #videosDropdown{
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(360px, 92vw);
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(0,0,0,.14);
+    z-index: 9999;
+  }
+
+  /* melhora toque/visual dos itens */
+  #videosDropdown .video-item{
+    width: 100%;
+    text-align: left;
+  }
+}
+
