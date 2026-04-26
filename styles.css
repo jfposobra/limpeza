@@ -237,12 +237,30 @@ box-shadow: 0 10px 30px rgba(2,6,23,0.10);
   scroll-margin-top: calc(var(--header-h) + 12px);
 }
 /* hidden by default; revealed via JS when menu item is clicked */
-.before-after{display:none;background:var(--bg)} /* keep before/after white */
+.before-after{display:block;background:var(--bg)} /* keep before/after white; revealed on load */
 .before-after .ba-grid{
   display:flex;
   gap:18px;
   align-items:flex-start;
   justify-content:center; /* recentre o comparador quando a coluna lateral for removida */
+}
+
+/* Antes/Depois carousel: two images shown together, responsive */
+.ba-carousel{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:stretch}
+.ba-pair{display:flex;gap:12px;align-items:stretch;flex:1;min-width:260px;justify-content:center}
+.carousel-thumb{width:100%;max-width:320px;display:inline-block}
+.carousel-thumb img{width:100%;height:240px;object-fit:cover;border-radius:12px;box-shadow:0 10px 30px rgba(11,105,163,0.06);transition:transform .18s}
+.carousel-thumb:focus{outline:3px solid rgba(6,49,78,0.12);outline-offset:4px}
+.carousel-thumb:hover img{transform:scale(1.02)}
+
+/* single extra thumbnail row (limpeza sofas) */
+@media (max-width:900px){
+  .ba-pair{flex-direction:row;gap:10px}
+  .carousel-thumb img{height:180px}
+}
+@media (max-width:640px){
+  .ba-pair{flex-direction:column}
+  .carousel-thumb img{height:160px}
 }
 .ba-card{position:relative;flex:1;overflow:hidden;border-radius:12px;background:transparent}
 

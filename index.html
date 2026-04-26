@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>J&F Limpeza Pós-Obra | Amadora e Grande Lisboa</title>
-  <meta name="description" content="Limpeza pós-obra profissional na Amadora e Grande Lisboa. Orçamento rápido, equipa experiente e acabamento impecável." />
+  <title>J&F Limpeza Pós-Obra | Malveira e Grande Lisboa</title>
+  <meta name="description" content="Limpeza pós-obra profissional na Malveira e Grande Lisboa. Orçamento rápido, equipa experiente e acabamento impecável." />
 
   <meta name="google-site-verification" content="Ktz94oMOBlokYVm5ux2ZmmNfAKo7njqxzF1BSH55mPE" />
 
@@ -77,7 +77,20 @@
     </ul>
   </li>
 
-  <li><a href="#antes-depois">Antes e Depois</a></li>
+  <li class="has-dropdown">
+    <a href="#antes-depois" id="antesToggle">Antes e Depois <span class="caret">▾</span></a>
+
+    <ul class="dropdown" id="antesDropdown" style="display:none" aria-hidden="true">
+      <!-- Removed inline thumbnails: dropdown now lists entries (no images) that open the lightbox when clicked -->
+      <li><button type="button" class="dropdown-img" data-src="posobra.jpeg" aria-label="Pos-Obra (Corredor)">Pos-Obra (Corredor)</button></li>
+      <li><button type="button" class="dropdown-img" data-src="posobra1 .jpeg" aria-label="Antes e Depois (Sala)">Antes e Depois (Sala)</button></li>
+      <li><button type="button" class="dropdown-img" data-src="posobra2.jpeg" aria-label="Transformação (Quarto)">Transformação (Quarto)</button></li>
+      <li><button type="button" class="dropdown-img" data-src="posobra3 (1).jpeg" aria-label="Pós-Obra (Detalhe)">Pós-Obra (Detalhe)</button></li>
+      <li><button type="button" class="dropdown-img" data-src="limpeza sofas.jpeg" aria-label="Limpeza de Sofás">Limpeza de Sofás</button></li>
+      <li><button type="button" class="dropdown-img" data-src="antes e depois.png" aria-label="Antes e Depois (Interior)">Antes e Depois (Interior)</button></li>
+      <li><button type="button" class="dropdown-img" data-src="antes-e-depois.1.png.png" aria-label="Antes e Depois (Renovação)">Antes e Depois (Renovação)</button></li>
+    </ul>
+  </li>
   <li><a href="#sobre">Sobre Nós</a></li>
   <li><a href="#contato">Contacto</a></li>
 </ul>
@@ -105,7 +118,7 @@
     <section id="hero" class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
-          <h1>Limpeza Pós-Obra Profissional na Amadora e Grande Lisboa</h1>
+          <h1>Limpza Pós-Obra Profissional na Malveira e Grande Lisboa</h1>
           <p>Limpeza grossa, fina e detalhada. Vidros e caixilharias. Espaço pronto a usar.</p>
 
           <ul style="margin:10px 0 14px;padding-left:18px;line-height:1.5">
@@ -122,6 +135,7 @@
 </a>
             <a class="btn ghost" href="#servicos">Ver Serviços</a>
           </div>
+<p class="social-proof">⭐⭐⭐⭐⭐ Clientes satisfeitos em Malveira e Grande Lisboa</p>
 
           <!-- Micro-bloco SEO A (após o Hero) -->
           <p class="seo-micro">Atendimento profissional de limpeza pós-obra na Amadora e Lisboa, com foco na preparação do espaço para uso imediato.</p>
@@ -153,25 +167,30 @@
   </a>
 </div>
 
-      <p class="seo-micro">Actuamos na Amadora e na região de Lisboa, incluindo Oeiras, Sintra, Cascais, Odivelas, Loures e Almada.</p>
+      <p class="seo-micro">Actuamos na Malveira e na região de Lisboa, incluindo Oeiras, Sintra, Cascais, Odivelas, Loures e Almada.</p>
     </div>
 
-    <section id="antes-depois" class="section before-after" style="display:none;">
+    <section id="antes-depois" class="section before-after" style="display:block;">
       <div class="container">
         <h2>Antes e Depois</h2>
         <p class="muted">Veja a transformação com nossos serviços.</p>
 
         <div class="ba-grid">
           <div class="ba-card">
-            <!-- Responsive gallery with local images (hidden by default until revealed) -->
-            <div class="ba-gallery">
-              <button class="ba-thumb" data-src="antes e depois.png" aria-label="Ver imagem Antes">
-                <img src="antes e depois.png" alt="Antes - J&F Limpeza Pós-Obra" />
-              </button>
-              <button class="ba-thumb" data-src="antes-e-depois.1.png.png" aria-label="Ver imagem Depois">
-                <img src="antes-e-depois.1.png.png" alt="Depois - J&F Limpeza Pós-Obra" />
-              </button>
+            <!-- Carousel that shows two imagens at a time and rotates pairs every 24 hours -->
+            <div class="ba-carousel" id="baCarousel" aria-live="polite">
+              <!-- Carousel shows exactly two images at a time (left + right) — other images rotate into these slots every 24h -->
+              <div class="ba-pair" id="baPair">
+                <button id="baThumb1" class="ba-thumb carousel-thumb" data-src="posobra.jpeg" aria-label="Imagem 1">
+                  <img src="posobra.jpeg" alt="Pos-Obra (Corredor)" />
+                </button>
+                <button id="baThumb2" class="ba-thumb carousel-thumb" data-src="posobra1 .jpeg" aria-label="Imagem 2">
+                  <img src="posobra1 .jpeg" alt="Antes e Depois (Sala)" />
+                </button>
+              </div>
             </div>
+
+            <p class="muted" style="margin-top:12px;font-size:0.95rem;text-align:center">O carrossel alterna duas imagens por vez a cada 24 horas.</p>
           </div>
         </div>
       </div>
@@ -218,7 +237,7 @@
   <div class="container">
     <p class="social-proof-text">
       ⭐⭐⭐⭐⭐
-      <strong>Clientes satisfeitos na Amadora e Grande Lisboa</strong><br>
+      <strong>Clientes satisfeitos na Malveira e Grande Lisboa</strong><br>
       Pontualidade, rigor e confiança em serviços de limpeza pós-obra.
     </p>
   </div>
@@ -227,7 +246,7 @@
     <section class="section section-testimonials" id="depoimentos">
   <div class="container">
    <h2>O que os clientes dizem</h2>
-<p class="muted">✔ Atendimento local • Amadora e Grande Lisboa</p>
+<p class="muted">✔ Atendimento local • Malveira e Grande Lisboa</p>
 <p class="muted">Relatos de clientes atendidos na Amadora e Grande Lisboa.</p>
 
     <div class="cards-grid">
@@ -283,6 +302,28 @@
       </div>
     </section>
 
+    <!-- VIDEO J&F: colocado logo após "Sobre a Empresa" — visível, sem cortes, com controles -->
+    <section id="video-jf" class="section video-section">
+      <div class="container">
+        <h2>Vídeo Institucional</h2>
+        <p class="muted">Assista ao nosso vídeo completo — reprodução com controlos; o ficheiro é apresentado sem cortes.</p>
+        <div class="video-block" aria-hidden="false">
+          <div class="video-frame">
+            <video
+              src="videoJ&F.mp4"
+              controls
+              preload="metadata"
+              playsinline
+              style="width:50%;height:50%;max-width:100%;object-fit:contain;border-radius:12px;display:block;margin:0 auto;outline:none;"
+              title="Vídeo J&F - Institucional"
+            >
+              O seu navegador não suporta o elemento de vídeo. Pode abrir o ficheiro diretamente: <a href="videoJ&F.mp4">videoJ&F.mp4</a>
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
      </main>
 
   <footer class="site-footer" id="contato">
@@ -293,7 +334,7 @@
             <img src="logo.png.jpg" alt="J&F Limpeza Pós-Obra" class="logo footer-logo" />
           </div>
           <p>
-            <a class="footer-link" href="https://www.google.com/maps?q=Rua+Sargento+ajudante+manuele+antonio+5+Amadora+Portugal" target="_blank" rel="noopener">Rua Sargento ajudante Manuele Antonio, nº 5 — Amadora, Portugal</a>
+            <a class="footer-link" href="https://www.google.com/maps?q=Rua+DR+Teofilo+Martins+de+Oliveira+11+3+Esquerdo+Caixa+Postal+2665286+Malveira+Portugal" target="_blank" rel="noopener">Rua: DR. Teófilo Martins de Oliveira 11 3 Esquerdo - Caixa Postal 2665286 - Malveira - Portugal</a>
           </p>
           <p><a class="footer-link" href="tel:+351931860324">+351 931 860 324</a></p>
           <p><a class="footer-link" href="mailto:jfposobra@gmail.com">jfposobra@gmail.com</a></p>
@@ -302,7 +343,7 @@
 
         <div class="footer-map" aria-hidden="false">
           <iframe
-            src="https://www.google.com/maps?q=Rua+Sargento+ajudante+manuele+antonio+5+Amadora+Portugal&output=embed"
+            src="https://www.google.com/maps?q=Rua+DR+Teofilo+Martins+de+Oliveira+11+3+Esquerdo+Caixa+Postal+2665286+Malveira+Portugal&output=embed"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             title="Localização - J&F Limpeza Pós-Obra"></iframe>

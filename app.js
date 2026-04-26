@@ -204,8 +204,16 @@ function openWhatsApp(phone, text = 'Olá, gostaria de um orçamento de limpeza 
 qs('#fabWhats').addEventListener('click', ()=> openWhatsApp('351931860324','Olá, gostaria de um orçamento de limpeza pós-obra.'));
 qs('#whatsappHero').addEventListener('click', ()=> openWhatsApp('351931860324','Olá, solicito orçamento - J&F Limpeza Pós-Obra.'));
 qs('#quoteBtn').addEventListener('click', ()=> openWhatsApp('351931860324','Olá, solicito orçamento - J&F Limpeza Pós-Obra.'));
-qsa('.cta-strong .whatsapp').forEach(btn=>{
-  btn.addEventListener('click', ()=> openWhatsApp(btn.dataset.phone, 'Olá, solicito orçamento - J&F Limpeza Pós-Obra.'));
+
+/* Ensure every visible WhatsApp CTA opens the correct number.
+   Buttons may have a data-phone attribute, otherwise default to the main number. */
+qsa('a.btn.whatsapp').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const phone = btn.dataset.phone || '351931860324';
+    // Provide a concise default message; individual buttons may override via data-phone if needed.
+    openWhatsApp(phone, 'Olá, solicito orçamento - J&F Limpeza Pós-Obra.');
+  });
 });
 
 /* Update visible button labels without changing structure/links */
@@ -251,8 +259,9 @@ qsa('a[href]').forEach(a=>{
 /* 2) Make images that are visible clickable to open their source in a new tab.
       Add class 'clickable-img' to control cursor; skip decorative images (aria-hidden or role=presentation) */
 qsa('img').forEach(img=>{
-  if(img.closest('a')) {
-    // if already inside a link, ensure that link opens (handled above) and skip adding another handler
+  // Skip images that are already links or are part of the "Antes e Depois" dropdown/gallery
+  // so they don't open directly in a new tab; those are handled by the lightbox handlers.
+  if(img.closest('a') || img.closest('#antesDropdown') || img.closest('.ba-thumb')) {
     return;
   }
   const ariaHidden = img.getAttribute('aria-hidden');
@@ -375,6 +384,48 @@ qsa('.ba-thumb').forEach(btn=>{
   });
 });
 
+// Attach dropdown image buttons in the "Antes e Depois" menu to the same lightbox.
+// Reveal the Antes/Depois section when a dropdown image is selected for context.
+qsa('#antesDropdown .dropdown-img').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    const src = btn.dataset.src;
+    if(!src) return;
+    // reveal the Antes e Depois section if hidden
+    if(antesSection) {
+      antesSection.style.display = 'block';
+      antesSection.setAttribute('aria-hidden','false');
+    }
+    // open lightbox with the selected image
+    lightboxImg.src = src;
+    lightbox.style.display = 'flex';
+    lightbox.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    // close the dropdown after selection
+    const parentDd = document.getElementById('antesDropdown');
+    if(parentDd) { parentDd.style.display = 'none'; parentDd.setAttribute('aria-hidden','true'); }
+    // close mobile nav if open
+    const navList = qs('#navList');
+    if(navList) navList.classList.remove('show');
+    const navToggle = qs('#navToggle');
+    if(navToggle) navToggle.setAttribute('aria-expanded','false');
+  });
+});
+
+// Also wire the toggle so the dropdown behaves similarly to other nav dropdowns
+const antesToggle = qs('#antesToggle');
+const antesDropdown = qs('#antesDropdown');
+if(antesToggle && antesDropdown){
+  antesToggle.addEventListener('click', (e)=>{
+    e.preventDefault();
+    // hide other dropdowns
+    const servDd = qs('#servDropdown'); if(servDd) servDd.style.display = 'none';
+    const vids = qs('#videosDropdown'); if(vids) vids.style.display = 'none';
+    const open = antesDropdown.style.display === 'block';
+    antesDropdown.style.display = open ? 'none' : 'block';
+    antesDropdown.setAttribute('aria-hidden', open ? 'true' : 'false');
+  });
+}
+
 function closeLightbox(){
   lightbox.style.display = 'none';
   lightbox.setAttribute('aria-hidden','true');
@@ -384,3 +435,74 @@ function closeLightbox(){
 if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
 if(lightbox) lightbox.addEventListener('click', (e)=> { if(e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeLightbox(); });
+
+/* --- Antes e Depois carousel: rotate image pairs every 24 hours (2 images shown at a time).
+   The set order follows the dropdown images: posobra.jpeg, posobra1 .jpeg, posobra2.jpeg, posobra3 (1).jpeg, limpeza sofas.jpeg
+   When the set has odd length the last pair wraps to the first. Thumbnails open the same lightbox used elsewhere. */
+(function initAntesCarousel(){
+  try{
+    const sources = [
+      'posobra.jpeg',
+      'posobra1 .jpeg',
+      'posobra2.jpeg',
+      'posobra3 (1).jpeg',
+      'limpeza sofas.jpeg',
+      'antes e depois.png',
+      'antes-e-depois.1.png.png'
+    ];
+    if(!sources.length) return;
+
+    // attach click handlers for any carousel/thumb buttons (open same lightbox)
+    function attachThumbHandler(btn){
+      if(!btn) return;
+      btn.addEventListener('click', ()=>{
+        const src = btn.dataset.src;
+        if(!src) return;
+        lightboxImg.src = src;
+        lightbox.style.display = 'flex';
+        lightbox.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+
+    const thumb1 = document.getElementById('baThumb1');
+    const thumb2 = document.getElementById('baThumb2');
+    attachThumbHandler(thumb1);
+    attachThumbHandler(thumb2);
+
+    // pair rotation state
+    let pairIndex = 0;
+    const total = sources.length;
+    const pairCount = Math.ceil(total / 2);
+
+    function showPair(idx){
+      // indices for the two visible images
+      const i1 = (idx * 2) % total;
+      const i2 = (i1 + 1) % total;
+
+      if(thumb1){
+        thumb1.dataset.src = sources[i1];
+        const img1 = thumb1.querySelector('img');
+        if(img1) img1.src = sources[i1];
+        thumb1.setAttribute('aria-label', `Ver imagem ${sources[i1]}`);
+      }
+      if(thumb2){
+        thumb2.dataset.src = sources[i2];
+        const img2 = thumb2.querySelector('img');
+        if(img2) img2.src = sources[i2];
+        thumb2.setAttribute('aria-label', `Ver imagem ${sources[i2]}`);
+      }
+    }
+
+    // initial render
+    showPair(pairIndex);
+
+    // advance every 24 hours (86_400_000 ms). Keep interval long for production.
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    setInterval(()=>{
+      pairIndex = (pairIndex + 1) % pairCount;
+      showPair(pairIndex);
+    }, DAY_MS);
+
+  }catch(e){console.error('Antes carousel init error', e)}
+})();
